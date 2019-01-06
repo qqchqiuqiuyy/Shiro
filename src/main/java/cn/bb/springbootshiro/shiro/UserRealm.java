@@ -34,7 +34,13 @@ public class UserRealm extends AuthorizingRealm {
             //shiro底层会自动抛出UnknownAccountException
             return null;
         }
-           //密码校验的话 返回这个  1 3参数空就行 pwd一定要传
+           //密码校验的话 返回这个
+        /*参数
+        1.对象 user
+        2.密码  user.getpassword
+        3.relam  当前relam 可以是UserRealm
+        这里的话 就先传password其他空也行
+         */
         return new SimpleAuthenticationInfo("",password,"");
     }
 }
