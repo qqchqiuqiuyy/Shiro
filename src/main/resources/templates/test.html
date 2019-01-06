@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body><!---->
-用户增加: <a href="toAdd">用户添加</a> </br>
-用户更新: <a href="toUpdate">用户更新</a>
+<body><!--对不同权限显示不同页面 -->
+<shiro:hasRole name="boss">
+    用户增加: <a href="toAdd">用户添加</a>
+</shiro:hasRole>
+<div shiro:hasRole="putong">
+    用户更新: <a href="toUpdate">用户更新</a>
+</div>
+
 </body>
 </html>

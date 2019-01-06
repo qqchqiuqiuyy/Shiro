@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/shiro?useUnicode=true&characterEncoding=utf8&useSSL=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: ily520wan
+    type: com.alibaba.druid.pool.DruidDataSource
+  thymeleaf:
+    cache: false
+mybatis:
+  type-handlers-package: cn.bb.springbootshiro.entity  #扫描pojo 不然会找不到实体
+  mapper-locations: classpath:mappler/*.xml #扫描mapper配置文件
+  configuration:
+    map-underscore-to-camel-case: true #驼峰映射
+

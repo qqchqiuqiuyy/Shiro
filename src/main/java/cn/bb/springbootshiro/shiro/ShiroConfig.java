@@ -1,5 +1,6 @@
 package cn.bb.springbootshiro.shiro;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,14 +36,30 @@ public class ShiroConfig {
          */
         //设置拦截路径 和 过滤器  拦截这些请求URL(controller) 如果没有对应的权限就会定向到login页面
         Map<String,String> filterMap = new LinkedHashMap<>(); //只能用Link
-       /* filterMap.put("/toAdd","authc");
+
+        /* filterMap.put("/toAdd","authc");
         filterMap.put("/toUpdate","authc");*/
+
         //放行 要写在通配前面
         filterMap.put("/test","anon");
-        //放行login表单
-       filterMap.put("/login","anon");
-        //通配方法 让某个目录所有页面都实现过滤
 
+         //放行login表单
+         filterMap.put("/login","anon");
+
+       //授权过滤器 对这个路径Url进行授权拦截
+        //拦截后 shiro会自动跳转到未授权页面 需要设置
+        //下面两个是对不同Url 所需要的资源访问权限限制
+        /*filterMap.put("/toAdd","perms[user:add]");
+        filterMap.put("/toUpdate","perms[user:update]");*/
+
+        //用角色 role
+        filterMap.put("/toAdd","roles[boss]");
+        filterMap.put("/toUpdate","roles[putong]");
+
+        //设置未授权提示页面
+        shiroFilterFactoryBean.setUnauthorizedUrl("/toUnAuth");
+
+        //通配方法 让某个目录所有页面都实现过滤
         filterMap.put("/*","authc");
 
         //修改认证失败后跳转页面
@@ -73,5 +90,11 @@ public class ShiroConfig {
         return new UserRealm();
     }
 
-
+    /*
+    配置shiroDialect 用于thymelefa和shiro标签配合使用
+     */
+    @Bean("shiroDialect")
+    public ShiroDialect getShiroDialect(){
+        return new ShiroDialect();
+    }
 }

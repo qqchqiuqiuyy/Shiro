@@ -19,6 +19,10 @@ public class UserController {
         return "user/add";
     }
 
+    @RequestMapping("/toUnAuth")
+    public String toUnAuth(){
+        return "/unAuth";
+    }
     @RequestMapping("/toUpdate")
     public String toUpdate(){
         return "user/update";
